@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
+import Album from "../../components/Album";
+import { album } from "./helper";
 
 interface Props {
   //receive from native
@@ -12,20 +14,11 @@ const FavoriteScreen = (props: Props) => {
     <View
       style={{
         flex: 1,
-        borderWidth: 1,
-        borderColor: "red",
-        flexDirection: "column",
+        // boxs
+        // flexDirection: "column",
         // justifyContent: "space-between",
       }}>
-      <Text>HELLO Native</Text>
-      <View
-        style={{
-          // alignSelf: "flex-end",
-          backgroundColor: "red",
-          height: 20,
-          width: "100%",
-        }}
-      />
+      <Album {...{ album }} />
     </View>
   );
 };
