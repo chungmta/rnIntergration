@@ -1,5 +1,5 @@
 const Constants = {
-  statusBarHeight: 0
-}
+  statusBarHeight: 0,
+};
 
-export default Constants
+export default Constants;

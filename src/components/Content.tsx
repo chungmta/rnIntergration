@@ -1,18 +1,27 @@
-import * as React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import * as React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import Animated from 'react-native-reanimated';
+import { onScrollEvent } from '../screen/FavoriteScreen/helper/Gesture';
 
-import { Album, MAX_HEADER_HEIGHT, HEADER_DELTA } from "./Model";
-import Track from "./Track";
+import { Album, MAX_HEADER_HEIGHT, HEADER_DELTA } from './Model';
+import Track from './Track';
 
 interface ContentProps {
   album: Album;
+  y: Animated.Value<number>;
 }
 
-export default ({ album: { artist, tracks } }: ContentProps) => {
+export default ({ album: { artist, tracks }, y }: ContentProps) => {
   const height = MAX_HEADER_HEIGHT;
+
   return (
-    <ScrollView
+    <Animated.ScrollView
+      onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: y } } }], {
+        listener: (event: { nativeEvent: { contentOffset: { y: any } } }) => {
+          console.log(event.nativeEvent.contentOffset.y);
+        },
+      })}
       style={styles.container}
       showsVerticalScrollIndicator={false}
       scrollEventThrottle={1}>
@@ -21,7 +30,7 @@ export default ({ album: { artist, tracks } }: ContentProps) => {
           <LinearGradient
             start={{ x: 0, y: 0.3 }}
             end={{ x: 1, y: 1 }}
-            colors={["transparent", "rgba(0, 0, 0, 0.2)", "black"]}
+            colors={['transparent', 'rgba(0, 0, 0, 0.2)', 'black']}
             style={StyleSheet.absoluteFill}
           />
         </View>
@@ -34,7 +43,7 @@ export default ({ album: { artist, tracks } }: ContentProps) => {
           <Track index={key + 1} {...{ track, key, artist }} />
         ))}
       </View>
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 
@@ -46,25 +55,25 @@ const styles = StyleSheet.create({
     height: MAX_HEADER_HEIGHT,
   },
   gradient: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     bottom: 0,
     right: 0,
-    alignItems: "center",
+    alignItems: 'center',
   },
   artistContainer: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   artist: {
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
     fontSize: 48,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   tracks: {
     paddingTop: 32,
-    backgroundColor: "black",
+    backgroundColor: 'black',
   },
 });

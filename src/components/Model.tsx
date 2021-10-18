@@ -1,7 +1,7 @@
-import { Dimensions } from "react-native";
-import Constants from "../screen/FavoriteScreen/helper/consts";
+import { Dimensions } from 'react-native';
+import Constants from '../screen/FavoriteScreen/helper/consts';
 
-const { height } = Dimensions.get("window");
+export const { height } = Dimensions.get('window');
 const φ = (1 + Math.sqrt(5)) / 2;
 
 export const MIN_HEADER_HEIGHT = 64 + Constants.statusBarHeight;
